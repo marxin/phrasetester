@@ -4,6 +4,12 @@ import os
 import sys
 import random
 
+def find_phrasebook():
+  for root, dirs, files in os.walk('.'):
+    for f in files:
+      if f == 'phrasebook.csv':
+        return os.path.join(root, f)
+
 class Phrase:
   def __init__(self, line):
     tokens = line.split(',')
@@ -12,7 +18,7 @@ class Phrase:
     self.source = tokens[2]
     self.target = tokens[3]
 
-words = [Phrase(x.strip()) for x in open('phrasebook.csv').readlines()]
+words = [Phrase(x.strip()) for x in open(find_phrasebook()).readlines()]
 
 print('DB contains: %u words' % len(words))
 
